@@ -20,7 +20,7 @@ public class Puzzle {
 		new Piece(new int[] {1, 6, 5, 3, 2, 4}),
 		new Piece(new int[] {1, 6, 4, 2, 5, 3})};
 	
-	// returns an array of the pieces that could legally be placed next, given an arraylist
+	// Returns an array of the pieces that could legally be placed next, given an arraylist
 	// of currently placed pieces. Pieces are placed in the following order: the zeroth element is the
 	// hub; the next piece is placed so that it lines up with the "1" of the hub pieces, and all following
 	// pieces are placed in clockwise order from that piece.
@@ -43,10 +43,10 @@ public class Puzzle {
 			}
 			break;
 		
-		default: // find pieces that match both the next open spot on the hub and the open spot on
-				 // the previously placed piece. If this is the seventh and final piece, the piece
-			     // must also match the other open spot on the first edge piece placed.
-			  	 // if this is the last piece to be placed, also the first piece's value.
+		default: // Finds pieces that match both the next open spot on the hub and the open spot on
+			 // the previously placed piece. If this is the seventh and final piece, the piece
+			 // must also match the other open spot on the first edge piece placed.
+
 			int hubValue = piecesSoFar.get(0).findValueByPosition(numberOfPieces - 1);
 			int hubValueOfPreviousPiece = piecesSoFar.get(0).findValueByPosition(numberOfPieces - 2);
 			int prevPieceValue = piecesSoFar.get(numberOfPieces - 1).findCounterClockwiseNeighborOfValue(hubValueOfPreviousPiece);
@@ -55,7 +55,8 @@ public class Puzzle {
 			for (int i = 0; i < 7; i++) {
 				if (!piecesSoFar.contains(pieces[i]) &&
 					pieces[i].findClockwiseNeighborOfValue(hubValue) == prevPieceValue &&
-					(numberOfPieces < 6 || pieces[i].findCounterClockwiseNeighborOfValue(hubValue) == firstPieceValue)) {
+					(numberOfPieces < 6 ||
+					 pieces[i].findCounterClockwiseNeighborOfValue(hubValue) == firstPieceValue)) {
 					potentialPieces.add(pieces[i]);
 				}
 			}
@@ -64,9 +65,9 @@ public class Puzzle {
 	}
 
 	
-	// recursively solves the puzzle. Takes an arraylist of the pieces already placed. If all are placed,
+	// Recursively solves the puzzle. Takes an arraylist of the pieces already placed. If all are placed,
 	// it outputs the solution; otherwise, it iterates through each potential piece that COULD legally be
-	// placed next, add it to pieces already placed, and recurse.
+	// placed next, add it to pieces already placed, and recurse on the new arraylist.
 	public void placePieces(ArrayList<Piece> piecesSoFar){
 		if (piecesSoFar.size() == 7) {
 			System.out.println(piecesSoFar.toString());
